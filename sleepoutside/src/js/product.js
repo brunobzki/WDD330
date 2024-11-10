@@ -7,7 +7,6 @@ function addProductToCart(product) {
 
   let cart = getLocalStorage("so-cart") || [];
 
-    // Asegúrate de que cart sea un array
     if (!Array.isArray(cart)) {
       cart = [];
     } 
