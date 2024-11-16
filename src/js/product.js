@@ -4,7 +4,6 @@ import { setLocalStorage, getParam } from "./utils.mjs";
 
 const dataSource = new ProductData("tents");
 const productId = getParam('product');
-console.log(dataSource.findProductById(productId));
 const product = new ProductDetails(productId, dataSource)
 
 
