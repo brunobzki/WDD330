@@ -1,8 +1,11 @@
-import { html, render } from "htm/preact";
-import ProductList from "./productList.mjs";
+import { loadHeaderFooter } from "./utils.mjs";
+import ProductData from "./ProductData.mjs";
+import ProductList from "./ProductList.mjs";
 
-// render takes two arguments: a component, and the element in the DOM we want the component rendered into.
-render(
-  html`<${ProductList} category="tents" />`,
-  document.querySelector(".products")
-);
+loadHeaderFooter();
+
+const dataSource = new ProductData("tents");
+const element = document.querySelector(".product-list");
+const listing = new ProductList("Tents", dataSource, element);
+
+listing.init();
