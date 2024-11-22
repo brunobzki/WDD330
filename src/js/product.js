@@ -9,7 +9,7 @@ const productId = getParam("product");
 
 const product = new ProductDetails(productId, dataSource);
 product.init();
-=======
+
     if (!Array.isArray(cart)) {
       cart = [];
     } 
@@ -17,7 +17,7 @@ product.init();
   cart.push(product);
 
   setLocalStorage("so-cart", cart);
-}
+
 // add to cart button event handler
 async function addToCartHandler(e) {
   const product = await dataSource.findProductById(e.target.dataset.id);
@@ -30,4 +30,3 @@ document
   .getElementById("addToCart")
   .addEventListener("click", addToCartHandler);
 
->>>>>> main
