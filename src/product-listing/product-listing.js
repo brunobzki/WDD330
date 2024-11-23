@@ -13,11 +13,13 @@ if (category) {
   const listElement = document.querySelector('.product-list');
   const myList = new ProductList(category, dataSource, listElement);
   myList.init();
+  console.log(category);
+  console.log(listElement);
+  console.log(dataSource);
+  console.log(myList);
+
+
 } else {
   console.error("Category parameter is missing in the URL.");
 }
 
-console.log(listing)
-console.log("Hola")
-console.log(dataSource)
-listing.init();
