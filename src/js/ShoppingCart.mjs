@@ -1,6 +1,5 @@
-import { getLocalStorage } from "./utils.mjs";
+import { getLocalStorage, setLocalStorage } from "./utils.mjs";
 
-// Plantilla para cada elemento del carrito
 function cartItemTemplate(item) {
   const newItem = `
     <li class="cart-card divider">
@@ -10,38 +9,38 @@ function cartItemTemplate(item) {
       <a href="#">
         <h2 class="card__name">${item.Name}</h2>
       </a>
-      <p class="cart-card__color">${item.Colors[0]?.ColorName || "No color specified"}</p>
+      <p class="cart-card__color">${item.Colors[0].ColorName}</p>
       <p class="cart-card__quantity">qty: ${item.Quantity || 1}</p>
-      <p class="cart-card__price">$${item.FinalPrice ? item.FinalPrice.toFixed(2) : "0.00"}</p>
+      <p class="cart-card__price">$${item.FinalPrice.toFixed(2)}</p>
+      <button class="remove-item" data-id="${item.Id}" aria-label="Remove ${item.Name}">X</button>
     </li>`;
   return newItem;
 }
 
 export default class ShoppingCart {
   constructor(key, parentSelector) {
-    this.key = key; // Clave del localStorage
-    this.parentSelector = parentSelector; // Contenedor del carrito
-    this.cartItems = this.getCartContents(); // Recuperar el carrito
+    this.key = key; 
+    this.parentSelector = parentSelector; 
+    this.cartItems = this.getCartContents(); 
   }
 
-  // Obtener los contenidos del carrito desde localStorage
   getCartContents() {
     return getLocalStorage(this.key) || [];
   }
 
-  // Renderizar el contenido del carrito
   renderCartContents() {
     const cartItems = this.cartItems;
 
     const htmlItems = cartItems.map((item) => cartItemTemplate(item));
 
-
     document.querySelector(this.parentSelector).innerHTML = htmlItems.join("");
 
-   
+ 
     this.updateCartTotal();
-  }
 
+   
+    this.addRemoveItemListeners();
+  }
 
   calculateCartTotal() {
     let total = 0;
@@ -52,7 +51,6 @@ export default class ShoppingCart {
     }
 
     this.cartItems.forEach((item, index) => {
-      
       const itemPrice = parseFloat(item.FinalPrice) || 0;
       const itemQuantity = parseInt(item.Quantity, 10) || 1;
 
@@ -61,9 +59,6 @@ export default class ShoppingCart {
         return;
       }
 
-      console.log(
-        `Calculando: ${item.Name || "Producto sin nombre"} - Precio: $${itemPrice} - Cantidad: ${itemQuantity}`
-      );
       total += itemPrice * itemQuantity;
     });
 
@@ -71,24 +66,41 @@ export default class ShoppingCart {
     return total;
   }
 
-  
-//  alangonzalezweek2 
-updateCartTotal() {
-  const total = this.calculateCartTotal();
-  const cartFooter = document.querySelector(".cart-footer");
-  const cartTotalElement = document.querySelector(".cart-total");
+  updateCartTotal() {
+    const total = this.calculateCartTotal();
+    const cartTotalElement = document.querySelector(".cart-total");
 
-  if (this.cartItems.length > 0) {
-   
-    cartFooter.classList.remove("hide");
-    console.log("Mostrando el footer del carrito.");
-    cartTotalElement.textContent = `Total: $${total.toFixed(2)}`;
-  } else {
-   
-    console.log("El carrito está vacío. Ocultando el footer.");
-    cartFooter.classList.add("hide");
+    if (cartTotalElement) {
+      cartTotalElement.textContent = `Total: $${total.toFixed(2)}`;
+    }
+
+    
+    const cartFooter = document.querySelector(".cart-footer");
+    if (this.cartItems.length === 0) {
+      cartFooter.classList.add("hide");
+    } else {
+      cartFooter.classList.remove("hide");
+    }
+  }
+// alan gonzalez week 3
+  removeItem(itemId) {
+    this.cartItems = this.cartItems.filter((item) => item.Id !== itemId);
+
+    setLocalStorage(this.key, this.cartItems);
+
+    console.log(`Producto eliminado. Nuevos elementos:`, this.cartItems);
+
+    this.renderCartContents(); 
   }
 
-  console.log("Actualizando total en el DOM:", total);
-}
+  addRemoveItemListeners() {
+    const removeButtons = document.querySelectorAll(".remove-item");
+    removeButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const itemId = button.getAttribute("data-id");
+        console.log(`Removing item with ID: ${itemId}`);
+        this.removeItem(itemId);
+      });
+    });
+  }
 }
