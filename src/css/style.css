@@ -229,3 +229,13 @@ footer {
 .categories div p {
   text-align: center;
 }
+
+.cart-footer {
+  padding: 10px;
+  background-color: #f9f9f9;
+  border-top: 1px solid #ddd;
+  text-align: right;
+}
+.cart-footer.hide {
+  display: none;
+}
