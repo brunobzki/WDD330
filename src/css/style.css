@@ -91,6 +91,13 @@ button {
   font-size: var(--large-font);
   cursor: pointer;
 }
+.remove-item{
+  font-size: 12px;
+  border-radius: 20px;
+  background-color: dimgrey;
+  margin: 10px;
+ 
+}
 .divider {
   border-bottom: 2px solid var(--primary-color);
 }
@@ -212,7 +219,8 @@ button {
   }
   .cart-card {
     font-size: inherit;
-    grid-template-columns: 150px auto 15%;
+    display: flex;
+    gap: 5%;
   }
 }
 
