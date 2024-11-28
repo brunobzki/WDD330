@@ -11,8 +11,11 @@ function convertToJson(res) {
 export default class ProductData {
   constructor(category) {
     this.category = category;
-    this.path = `./public/partials/json/${this.category}.json`;
+    // this.path = `./public/partials/json/${this.category}.json`;
+    this.path = `${window.location.origin}/json/${this.category}.json`;
+
   }
+
 
   async getData() {
     console.log('Requested category:', this.category); // Ahora usamos this.category
