@@ -10,15 +10,32 @@ function convertToJson(res) {
 
 export default class ProductData {
   constructor(category) {
-    
+    this.category = category;
+    this.path = `./public/partials/json/${this.category}.json`;
   }
-  async getData(category) {
-    const response = await fetch(baseURL + `products/search/${category}`);
-    const data = await convertToJson(response);
 
-    console.log(data);  
+  async getData() {
+    console.log('Requested category:', this.category); // Ahora usamos this.category
+    const response = await fetch(baseURL + `products/search/${this.category}`);
+    console.log('Response fetched:', response);
+  
+    const data = await convertToJson(response);
+    console.log('Data fetched:', data);
+  
     return data.Result;
   }
+  
+  
+  // async getData(category) {
+  //   console.log('Requested category:', category); 
+  //   console.log('Fetching products for category:', category); // Nuevo log
+  //   const response = await fetch(baseURL + `products/search/${category}`);
+  //   console.log('Response status:', response.status); // Verifica el estado HTTP
+  //   const data = await convertToJson(response);
+  //   console.log('Data fetched:', data); // Muestra los datos obtenidos
+      
+  //   return data.Result;
+  // }
   async findProductById(id) {
     const baseURL = import.meta.env.VITE_SERVER_URL;
     const response = await fetch(`${baseURL}product/${id}`);
@@ -28,8 +45,8 @@ export default class ProductData {
     }
   
     const data = await response.json();
-
-    console.log(data);
+   
+   
     return data.Result; // Ajusta según la estructura de tu API.
   }
   

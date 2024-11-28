@@ -30,12 +30,15 @@ export function renderListWithTemplate(
   position = "afterbegin",
   clear = false
 ) {
+  console.log('List to render:', list); // Verifica que el arreglo de productos no esté vacío
   const htmlStrings = list.map(templateFn);
+ 
   // if clear is true we need to clear out the contents of the parent.
   if (clear) {
     parentElement.innerHTML = "";
   }
   parentElement.insertAdjacentHTML(position, htmlStrings.join(""));
+  console.log('Rendered HTML in parent element:', parentElement.innerHTML); // Verifica si se renderizó en el DOM
 }
 
 // function to take an optional object and a template and insert the objects as HTML into the DOM
