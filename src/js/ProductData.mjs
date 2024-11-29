@@ -8,7 +8,7 @@ function convertToJson(res) {
   }
 }
 
-export default class ProductData {
+export default class ExternalServices {
   constructor(category) {
     
   }
@@ -26,13 +26,22 @@ export default class ProductData {
     if (!response.ok) {
       throw new Error('Producto no encontrado');
     }
-  
     const data = await response.json();
-
     console.log(data);
     return data.Result; // Ajusta según la estructura de tu API.
   }
+  async checkout(payload) {
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    };
+    return await fetch(baseURL + "checkout/", options).then(convertToJson);
+  }
   
+
 }
 
 /**

@@ -1,4 +1,4 @@
-import ProductData from '../js/ProductData.mjs';
+import ExternalServices from '../js/ProductData.mjs';
 import ProductList from '../js/ProductList.mjs';
 import { loadHeaderFooter, getParam } from '../js/utils.mjs';
 
@@ -9,7 +9,7 @@ const category = getParam('category');
 console.log(category)
 
 if (category) {
-  const dataSource = new ProductData();
+  const dataSource = new ExternalServices();
   const listElement = document.querySelector('.product-list');
   const myList = new ProductList(category, dataSource, listElement);
   myList.init();
