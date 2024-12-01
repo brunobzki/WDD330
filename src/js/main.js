@@ -1,14 +1,14 @@
 import { loadHeaderFooter } from "./utils.mjs";
 import ExternalServices from "./ProductData.mjs";
 import ProductListing from "./ProductList.mjs";
-console.log('Initializing main.js'); // Depuración
+console.log("Initializing main.js"); // Depuración
 loadHeaderFooter();
 
 const dataSource = new ExternalServices("tents");
 
-console.log('ProductData instance created:', dataSource); // Depuración
+console.log("ProductData instance created:", dataSource); // Depuración
 const element = document.querySelector(".product-list");
-console.log('Element selected:', element); // Depuración
+console.log("Element selected:", element); // Depuración
 const listing = new ProductListing("Tents", dataSource, element);
-console.log('ProductListing instance created:', listing); // Depuración
+console.log("ProductListing instance created:", listing); // Depuración
 listing.init();

@@ -91,12 +91,11 @@ button {
   font-size: var(--large-font);
   cursor: pointer;
 }
-.remove-item{
+.remove-item {
   font-size: 12px;
   border-radius: 20px;
   background-color: dimgrey;
   margin: 10px;
- 
 }
 .divider {
   border-bottom: 2px solid var(--primary-color);

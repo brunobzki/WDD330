@@ -18,8 +18,6 @@
 //   console.log(dataSource);
 //   console.log(myList);
 
-
 // } else {
 //   console.error("Category parameter is missing in the URL.");
 // }
-

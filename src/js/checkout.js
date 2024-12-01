@@ -1,6 +1,6 @@
 import { loadHeaderFooter } from "./utils.mjs";
 import CheckoutProcess from "./checkoutProcess.mjs";
-console.log(CheckoutProcess)
+console.log(CheckoutProcess);
 loadHeaderFooter();
 
 const myCheckout = new CheckoutProcess("so-cart", ".checkout-summary");
