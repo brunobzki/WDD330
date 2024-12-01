@@ -1,4 +1,4 @@
-const baseURL = import.meta.env.VITE_SERVER_URL;
+const baseURL = import.meta.env.VITE_SERVER_URL || "https://wdd330-backend.onrender.com/";
 console.log('Base URL:', baseURL); // Agrega este console.log para depurar
 
 function convertToJson(res) {
