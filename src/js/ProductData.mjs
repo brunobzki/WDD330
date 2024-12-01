@@ -1,5 +1,4 @@
-const baseURL = import.meta.env.VITE_SERVER_URL || "https://wdd330-backend.onrender.com/";
-console.log('Base URL:', baseURL); // Agrega este console.log para depurar
+const baseURL = "http://server-nodejs.cit.byui.edu:3000/";
 
 function convertToJson(res) {
   if (res.ok) {
@@ -9,7 +8,7 @@ function convertToJson(res) {
   }
 }
 
-export default class ProductData {
+export default class ExternalServices {
   constructor(category) {
     this.category = category;
     // this.path = `./public/partials/json/${this.category}.json`;
@@ -28,18 +27,7 @@ export default class ProductData {
   
     return data.Result;
   }
-  
-  
-  // async getData(category) {
-  //   console.log('Requested category:', category); 
-  //   console.log('Fetching products for category:', category); // Nuevo log
-  //   const response = await fetch(baseURL + `products/search/${category}`);
-  //   console.log('Response status:', response.status); // Verifica el estado HTTP
-  //   const data = await convertToJson(response);
-  //   console.log('Data fetched:', data); // Muestra los datos obtenidos
-      
-  //   return data.Result;
-  // }
+ 
   async findProductById(id) {
     const baseURL = import.meta.env.VITE_SERVER_URL;
     const response = await fetch(`${baseURL}product/${id}`);
@@ -51,26 +39,17 @@ export default class ProductData {
     const data = await response.json();
    
    
-    return data.Result; // Ajusta según la estructura de tu API.
+    return data.Result; 
   }
-  
-}
-
-/**
  
-export default class ProductData {
-  constructor(category) {
-    this.category = category;
-    this.path = `../json/${this.category}.json`;
-    const baseURL = import.meta.env.VITE_SERVER_URL
+  async checkout(payload) {
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    };
+    return await fetch(baseURL + "checkout/", options).then(convertToJson);
   }
-  getData() {
-    return fetch(this.path)
-      .then(convertToJson)
-      .then((data) => data);
-  }
-  async findProductById(id) {
-    const products = await this.getData();
-    return products.find((item) => item.Id === id);
-  }
-}*/
+}
