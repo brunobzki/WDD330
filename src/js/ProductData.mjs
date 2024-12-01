@@ -29,7 +29,7 @@ export default class ExternalServices {
   }
  
   async findProductById(id) {
-    const baseURL = import.meta.env.VITE_SERVER_URL;
+    
     const response = await fetch(`${baseURL}product/${id}`);
   
     if (!response.ok) {
