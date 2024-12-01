@@ -1,5 +1,5 @@
 import { getLocalStorage} from "./utils.mjs";
-import ExternalServices from "./ExternalServices.mjs";
+import ExternalServices from "./ProductData.mjs";
 
 const services = new ExternalServices();
 

@@ -1,5 +1,5 @@
 import { loadHeaderFooter } from "./utils.mjs";
-import ExternalServices from "./ExternalServices.mjs";
+import ExternalServices from "./ProductData.mjs";
 import ProductListing from "./ProductList.mjs";
 console.log('Initializing main.js'); // Depuración
 loadHeaderFooter();
