@@ -1,10 +1,10 @@
 import { loadHeaderFooter } from "./utils.mjs";
-import ProductData from "./ProductData.mjs";
+import ExternalServices from "./ExternalServices.mjs";
 import ProductListing from "./ProductList.mjs";
 console.log('Initializing main.js'); // Depuración
 loadHeaderFooter();
 
-const dataSource = new ProductData("tents");
+const dataSource = new ExternalServices("tents");
 
 console.log('ProductData instance created:', dataSource); // Depuración
 const element = document.querySelector(".product-list");
