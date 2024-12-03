@@ -11,14 +11,14 @@ function convertToJson(res) {
 export default class ExternalServices {
   constructor(category) {
     this.category = category;
-    // this.path = `./public/partials/json/${this.category}.json`;
+    
     this.path = `${window.location.origin}/json/${this.category}.json`;
 
   }
 
 
   async getData() {
-    console.log('Requested category:', this.category); // Ahora usamos this.category
+    console.log('Requested category:', this.category); 
     const response = await fetch(baseURL + `products/search/${this.category}`);
     console.log('Response fetched:', response);
   
