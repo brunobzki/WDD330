@@ -1,21 +1,33 @@
 import { setLocalStorage, getLocalStorage } from "./utils.mjs";
 
 function productDetailsTemplate(product) {
-  return `<section class="product-detail"> <h3>${product.Brand.Name}</h3>
+  const extraImages = product.Images.ExtraImages?.map(
+    (image) => `<div class="carousel__item"><img src="${image.Src}" alt="${image.Title}" /></div>`
+  ).join("") || ""; 
+
+  return `<section class="product-detail">
+    <h3>${product.Brand.Name}</h3>
     <h2 class="divider">${product.NameWithoutBrand}</h2>
-    <img
-      class="divider"
-      src="${product.Images.PrimaryLarge}"
-      alt="${product.NameWithoutBrand}"
-    />
+    <div class="carousel">
+      <div class="carousel__container">
+        <div class="carousel__item active"> <!-- Primera imagen activa -->
+          <img
+            src="${product.Images.PrimaryLarge}"
+            alt="${product.NameWithoutBrand}"
+          />
+        </div>
+        ${extraImages}
+      </div>
+      <button class="carousel__button carousel__button--prev">&lt;</button>
+      <button class="carousel__button carousel__button--next">&gt;</button>
+    </div>
     <p class="product-card__price">$${product.FinalPrice}</p>
     <p class="product__color">${product.Colors[0].ColorName}</p>
-    <p class="product__description">
-    ${product.DescriptionHtmlSimple}
-    </p>
+    <p class="product__description">${product.DescriptionHtmlSimple}</p>
     <div class="product-detail__add">
       <button id="addToCart" data-id="${product.Id}">Add to Cart</button>
-    </div></section>`;
+    </div>
+  </section>`;
 }
 
 export default class ProductDetails {
@@ -34,6 +46,7 @@ export default class ProductDetails {
     document
       .getElementById("addToCart")
       .addEventListener("click", this.addToCart.bind(this));
+      new Carousel(".carousel");
   }
   addToCart() {
     let cartContents = getLocalStorage("so-cart");
@@ -52,4 +65,32 @@ export default class ProductDetails {
       productDetailsTemplate(this.product)
     );
   }
-}
+}  
+  class Carousel {
+    constructor(containerSelector) {
+      this.container = document.querySelector(containerSelector);
+      this.items = this.container.querySelectorAll(".carousel__item");
+      this.currentIndex = 0;
+  
+      this.prevButton = this.container.querySelector(".carousel__button--prev");
+      this.nextButton = this.container.querySelector(".carousel__button--next");
+  
+      this.prevButton.addEventListener("click", () => this.showPrevious());
+      this.nextButton.addEventListener("click", () => this.showNext());
+    }
+  
+    showPrevious() {
+      this.items[this.currentIndex].classList.remove("active");
+      this.currentIndex =
+        (this.currentIndex - 1 + this.items.length) % this.items.length;
+      this.items[this.currentIndex].classList.add("active");
+    }
+  
+    showNext() {
+      this.items[this.currentIndex].classList.remove("active");
+      this.currentIndex = (this.currentIndex + 1) % this.items.length;
+      this.items[this.currentIndex].classList.add("active");
+    }
+  }
+
+
